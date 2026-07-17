@@ -12,17 +12,17 @@ class Student_Manager:
 
     def show_student(self):
         for student in self.students:
-            print(student.name)
-            print(student.student_id)
-            print(student.grade)
+            print(student.name + "\n")
+            print(student.student_id + "\n")
+            print(student.grade + "\n")
             print("\n\n")
 
     
     def search_student(self, id):
         for student in self.students:
             if student.student_id == id:
-                print(student.name)
-                print(student.grade)
+                print(student.name + "\n")
+                print(student.grade + "\n")
         
         print("Nothing found")
 
