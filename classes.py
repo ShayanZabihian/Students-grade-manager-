@@ -9,12 +9,14 @@ class Student_Manager:
         temp = Student(name, student_id, grade)
         self.students.append(temp)
 
+
     def show_student(self):
         for student in self.students:
             print(student.name)
             print(student.student_id)
             print(student.grade)
             print("\n\n")
+
     
     def search_student(self, id):
         for student in self.students:
@@ -23,6 +25,7 @@ class Student_Manager:
                 print(student.grade)
         
         print("Nothing found")
+
     
     def delete_student(self, id):
         i = 0
@@ -36,12 +39,29 @@ class Student_Manager:
         
             
     def save_to_json(self, filename):
-        with open(filename, 'w') as f:
-            f.write(json.dumps(self.students, indent=4))
-        
+        data = [student.__dict__ for student in self.students]
+
+        with open(filename, 'w', encoding="utf-8") as f:
+            json.dump(data, f, indent=4)
+
 
     def load_from_json(self, filename):
-        print("I've got no clue")
+        try:
+            with open(filename, 'r', encoding="utf-8") as f:
+                data = json.load(f)
+                self.students = []
+
+                for student_dict in data:
+                    student = Student(**student_dict)
+                    self.students.append(student)
+        except FileNotFoundError:
+           print("No saved students found")
+        except json.JSONDecodeError:
+            print("The file is empty or contains invalid JSON.")
+
+      
+           
+
        
 
 
